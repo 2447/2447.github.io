@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Keywords" content="blog"/>
+    <meta name="Description" content="blog"/>
+    <title>Simple</title>
+    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<div class="main">
+    <div class="header">
+    	<ul id="pages">
+            <li><a href="/">home</a></li>
+            <li><a href="/#/tags">tags</a></li>
+            <li><a href="/#/archive">archive</a></li>
+    	</ul>
+    </div>
+	<div class="wrap-header">
+	<h1>
+    <a href="/" id="title"></a>
+	</h1>
+	</div>
+<div id="md" style="display: none;">
+<!-- markdown -->
+首先绑定两个域名（以下称 A域名 和 B域名）到空间目录上。
+
+接着把typecho上传到空间里，打开 A域名 时，typecho就会自动检测并开始安装，安装是请修改数据库表前缀为 A_ ，安装过程非常顺利。
+
+安装完后，把程序自动生成的文件config.inc.php下载下来备份，并删除服务器上的config.inc.php。
+
+然后，用 B域名 打开网站，此时，typecho会再度自动检测并开始安装，此时请修改数据库表前缀为 B_ ，安装过程也一样非常的顺利。
+
+再次把config.inc.php这个文件下载下来，对比前后两个文件，我们可以发现它们之间的区别就在于最后的数据库及表前缀的区别。
+
+这两个文件是非常的相似，那么我们就可以模仿wordpress，让它也能一个程序建多个站点了。
+
+```php
+if($_SERVER["HTTP_HOST"]=="A域名.com" || $_SERVER["HTTP_HOST"]=="www.A域名.com"){
+$db = new Typecho_Db('Mysql', 'A_');
+}
+else if($_SERVER["HTTP_HOST"]=="B域名.com" || $_SERVER["HTTP_HOST"]=="www.B域名.com"){
+$db = new Typecho_Db('Mysql', 'B_');
+}
+$db->addServer(array (
+'host' => 'localhost',
+'user' => '数据库用户名',
+'password' => '数据库密码',
+'charset' => 'utf8',
+'port' => '3306',
+'database' => '数据库名',
+), Typecho_Db::READ | Typecho_Db::WRITE);
+Typecho_Db::set($db);       
+                         
+```             
+这样一来，虽然是同一个程序，但当用 A域名 打开时，它调用的是前缀为A_的数据，当用 B域名 打开时，它调用的是前缀为B_的数据      
+<!-- markdown end -->
+</div>
+<div class="entry" id="main">
+<!-- content -->
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">首先绑定两个域名（以下称 A域名 和 B域名）到空间目录上。</font></font></p>
+
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">接着把typecho上传到空间里，打开 A域名 时，typecho就会自动检测并开始安装，安装是请修改数据库表前缀为 A_ ，安装过程非常顺利。</font></font></p>
+
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">安装完后，把程序自动生成的文件config.inc.php下载下来备份，并删除服务器上的config.inc.php。</font></font></p>
+
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">然后，用 B域名 打开网站，此时，typecho会再度自动检测并开始安装，此时请修改数据库表前缀为 B_ ，安装过程也一样非常的顺利。</font></font></p>
+
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">再次把config.inc.php这个文件下载下来，对比前后两个文件，我们可以发现它们之间的区别就在于最后的数据库及表前缀的区别。</font></font></p>
+
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">这两个文件是非常的相似，那么我们就可以模仿wordpress，让它也能一个程序建多个站点了。</font></font></p>
+
+<pre><code class="php">if($_SERVER["HTTP_HOST"]=="A域名.com" || $_SERVER["HTTP_HOST"]=="www.A域名.com"){<font></font>
+$db = new Typecho_Db('Mysql', 'A_');<font></font>
+}<font></font>
+else if($_SERVER["HTTP_HOST"]=="B域名.com" || $_SERVER["HTTP_HOST"]=="www.B域名.com"){<font></font>
+$db = new Typecho_Db('Mysql', 'B_');<font></font>
+}<font></font>
+$db-&gt;addServer(array (<font></font>
+'host' =&gt; 'localhost',<font></font>
+'user' =&gt; '数据库用户名',<font></font>
+'password' =&gt; '数据库密码',<font></font>
+'charset' =&gt; 'utf8',<font></font>
+'port' =&gt; '3306',<font></font>
+'database' =&gt; '数据库名',<font></font>
+), Typecho_Db::READ | Typecho_Db::WRITE);<font></font>
+Typecho_Db::set($db);       <font></font>
+</code></pre>
+
+<pre><code>         
+</code></pre>
+
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">这样一来，虽然是同一个程序，但当用 A域名 打开时，它调用的是前缀为A</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">的数据，当用 B域名 打开时，它调用的是前缀为B</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">的数据      </font></font></p>
+<!-- content end -->
+</div>
+<br>
+<br>
+    <div id="disqus_thread"></div>
+	<div class="footer">
+		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
+	</div>
+</div>
+<script src="main.js"></script>
+<script id="content" type="text/mustache">
+    <h1>{{title}}</h1>
+    <div class="tag">
+    {{date}}
+    {{#tags}}
+    <a href="/#/tag/{{name}}">#{{name}}</a>
+    {{/tags}}
+    </div>
+</script>
+<script id="pagesTemplate" type="text/mustache">
+    {{#pages}}
+    <li>
+        <a href="{{path}}">{{title}}</a>
+    </li>
+    {{/pages}}
+</script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "main.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            $("#title").html(data.name);
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": data.pages});
+            $("#pages").append(pagesHtml);
+            //path
+            var path = "1.html";
+            //path end
+            var now = 0;
+            for (var i = 0; i < data.posts.length; ++i)
+                if (path == data.posts[i].path)
+                    now = i;
+            var post = data.posts[now];
+            var tmp = post.tags.split(" ");
+            var tags = [];
+            for (var i = 0; i < tmp.length; ++i)
+                if (tmp[i].length > 0)
+                    tags.push({"name": tmp[i]});
+            var contentTemplate = Hogan.compile($("#content").html());
+            var contentHtml = contentTemplate.render({"title": post.title, "tags": tags, "date": post.date});
+            $("#main").prepend(contentHtml);
+            if (data.disqus_shortname.length > 0) {
+                var disqus_shortname = data.disqus_shortname;
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        }
+    });
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true}});
+</script>
+</body>
+</html>
