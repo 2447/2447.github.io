@@ -60,17 +60,17 @@ Typecho_Db::set($db);
 </div>
 <div class="entry" id="main">
 <!-- content -->
-<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">首先绑定两个域名（以下称 A域名 和 B域名）到空间目录上。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">首先绑定两个域名（以下称 A域名 和 B域名）到空间目录上。</font></font></font></font></p>
 
-<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">接着把typecho上传到空间里，打开 A域名 时，typecho就会自动检测并开始安装，安装是请修改数据库表前缀为 A_ ，安装过程非常顺利。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">接着把typecho上传到空间里，打开 A域名 时，typecho就会自动检测并开始安装，安装是请修改数据库表前缀为 A_ ，安装过程非常顺利。</font></font></font></font></p>
 
-<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">安装完后，把程序自动生成的文件config.inc.php下载下来备份，并删除服务器上的config.inc.php。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">安装完后，把程序自动生成的文件config.inc.php下载下来备份，并删除服务器上的config.inc.php。</font></font></font></font></p>
 
-<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">然后，用 B域名 打开网站，此时，typecho会再度自动检测并开始安装，此时请修改数据库表前缀为 B_ ，安装过程也一样非常的顺利。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">然后，用 B域名 打开网站，此时，typecho会再度自动检测并开始安装，此时请修改数据库表前缀为 B_ ，安装过程也一样非常的顺利。</font></font></font></font></p>
 
-<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">再次把config.inc.php这个文件下载下来，对比前后两个文件，我们可以发现它们之间的区别就在于最后的数据库及表前缀的区别。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">再次把config.inc.php这个文件下载下来，对比前后两个文件，我们可以发现它们之间的区别就在于最后的数据库及表前缀的区别。</font></font></font></font></p>
 
-<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">这两个文件是非常的相似，那么我们就可以模仿wordpress，让它也能一个程序建多个站点了。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">这两个文件是非常的相似，那么我们就可以模仿wordpress，让它也能一个程序建多个站点了。</font></font></font></font></p>
 
 <pre><code class="php">if($_SERVER["HTTP_HOST"]=="A域名.com" || $_SERVER["HTTP_HOST"]=="www.A域名.com"){<font></font>
 $db = new Typecho_Db('Mysql', 'A_');<font></font>
@@ -92,7 +92,7 @@ Typecho_Db::set($db);       <font></font>
 <pre><code>         
 </code></pre>
 
-<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">这样一来，虽然是同一个程序，但当用 A域名 打开时，它调用的是前缀为A</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">的数据，当用 B域名 打开时，它调用的是前缀为B</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">的数据      </font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">这样一来，虽然是同一个程序，但当用 A域名 打开时，它调用的是前缀为A</font></font></font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">的数据，当用 B域名 打开时，它调用的是前缀为B</font></font></font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">的数据      </font></font></font></font></p>
 <!-- content end -->
 </div>
 <br>
